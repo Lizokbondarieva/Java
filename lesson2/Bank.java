@@ -1,5 +1,7 @@
+package lesson2;
+
 public class Bank {
-//    Створіть клас Bank, який має наступні поля:
+//    Створіть клас src.Bank, який має наступні поля:
     String name;
     double balance;
     double interestRate;//    Додайте до класу наступні методи:

@@ -1,3 +1,5 @@
+package lesson2;
+
 class Car {
     String make;//марка
     String model;//модель

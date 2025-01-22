@@ -1,6 +1,8 @@
+package lesson2;
+
 import java.util.Scanner;
 public class Book {
-//    Створіть клас Book, який має наступні поля:
+//    Створіть клас src.Book, який має наступні поля:
   String title;// () - назва книги
    String author; // - автор книги
     int yearPublished; // - рік видання
