@@ -21,9 +21,10 @@ class Students {
     void calculateAverageGrade() {
 
         for (i = 0; i < grades.size(); i++) {
-            result = result + grades.get(i);
-            System.out.println("Среднее значение: " + result / grades.size());
+            result += grades.get(i);
+
         }
+        System.out.println("Среднее значение: " + result / grades.size());
     }
 
     void displayInfo() {
@@ -41,7 +42,7 @@ class Students {
         mystudents.addGrade();
         mystudents.addGrade();
         mystudents.addGrade();
-        mystudents.calculateAverageGrade();
+                mystudents.calculateAverageGrade();
         mystudents.displayInfo();
 
     }
