@@ -1,5 +1,4 @@
 package lesson3;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -9,14 +8,13 @@ public class Student {
     double grade; // — средний балл.
     String faculty; // — факультет студента.
 
-    public Student(String name, int age, double grade, String faculty) {
+    Student(String name, int age, double grade, String faculty) {
         this.name = name;
         this.age = age;
         this.grade = grade;
         this.faculty = faculty;
     }
 
-    @Override
     public String toString() {
         return "Student{" +
                 "name='" + name + '\'' +
@@ -26,18 +24,19 @@ public class Student {
                 '}';
     }
 
-    public static class StudentManagement {
+    public class StudentManagement {
         public static void main(String[] args) {
             ArrayList<Student> students = new ArrayList<>();
             Scanner scanner = new Scanner(System.in);
             boolean running = true;
 
+            int a;
             while (running) {
                 System.out.println("Виберіть пункт меню: \n1-Показати всіх, 2-Додати студента, 3-Знайти студента, 4-видалити студента, 5-Завершити програму");
-                int choice = scanner.nextInt();
+                a = scanner.nextInt();
                 scanner.nextLine(); // Очистка буфера после ввода числа
 
-                switch (choice) {
+                switch (a) {
                     case 1:
                         // Показать всех студентов
                         if (students.isEmpty()) {
@@ -50,7 +49,6 @@ public class Student {
                         break;
 
                     case 2:
-                        // Добавить нового студента
                         System.out.print("Введите имя: ");
                         String name = scanner.nextLine();
                         System.out.print("Введите возраст: ");
@@ -64,9 +62,7 @@ public class Student {
                         students.add(new Student(name, age, grade, faculty));
                         System.out.println("Студент добавлен.");
                         break;
-
                     case 3:
-                        // Найти студентов по критериям
                         System.out.println("Критерии поиска:");
                         System.out.print("Средний балл выше (введите значение или -1 для пропуска): ");
                         double minGrade = scanner.nextDouble();
@@ -74,13 +70,14 @@ public class Student {
                         int minAge = scanner.nextInt();
                         System.out.print("Максимальный возраст (введите значение или -1 для пропуска): ");
                         int maxAge = scanner.nextInt();
-                        scanner.nextLine(); // Очистка буфера
+                        scanner.nextLine(); // очистка буфера
                         System.out.print("Факультет (оставьте пустым для пропуска): ");
                         String searchFaculty = scanner.nextLine();
-
-                        boolean found = false; // Флаг для проверки найденных студентов
                         for (Student s : students) {
-                            boolean matches = minGrade == -1 || !(s.grade <= minGrade);
+                            boolean matches = true;
+                            if (minGrade != -1 && s.grade <= minGrade) {
+                                matches = false;
+                            }
                             if (minAge != -1 && s.age < minAge) {
                                 matches = false;
                             }
@@ -93,27 +90,26 @@ public class Student {
 
                             if (matches) {
                                 System.out.println(s);
-                                found = true; // Устанавливаем флаг
                             }
                         }
-                        if (!found) {
-                            System.out.println("Нет студентов, соответствующих критериям.");
-                        }
                         break;
-
                     case 4:
-                        // Удалить студента
                         System.out.print("Введите имя студента для удаления: ");
                         String deleteName = scanner.nextLine();
 
-                        boolean removed = students.removeIf(s -> s.name.equalsIgnoreCase(deleteName));
-                        if (removed) {
-                            System.out.println("Студент удалён.");
-                        } else {
+                        boolean found = false;
+                        for (int i = 0; i < students.size(); i++) {
+                            if (students.get(i).name.equalsIgnoreCase(deleteName)) {
+                                students.remove(i);
+                                found = true;
+                                System.out.println("Студент удалён.");
+                                break;
+                            }
+                        }
+                        if (!found) {
                             System.out.println("Студент с таким именем не найден.");
                         }
                         break;
-
                     case 5:
                         // Завершить программу
                         running = false;
@@ -125,7 +121,6 @@ public class Student {
                         break;
                 }
             }
-            scanner.close();
         }
     }
 }
